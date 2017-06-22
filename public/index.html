@@ -24,17 +24,16 @@
     <script src="./js/helpers/formCreator.js"></script>
     <script src="./js/controllers/FormController.js"></script>
     <script>
+    fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
+      .then(response => response.json()
+        .then(data => {
+          let formCreator = new FormCreator(data);
+        }))
+    .catch(function(error) {
+      console.log(error);
+    });
       let listaUser = new ListaUser()
       let formrController = new FormController();
-
-      fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
-        .then(response => response.json()
-          .then(data => {
-            let formCreator = new FormCreator(data);
-          }))
-      .catch(function(error) {
-        console.log(error);
-      });
       listaUser.reciveUsers();
     </script>
   </body>

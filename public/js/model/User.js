@@ -1,13 +1,12 @@
 class User {
 
 
-  constructor(name,cpf,telephone,address,complement) {
+  constructor(name,cpf,telephone,address) {
 
           this._name = name;
           this._cpf = cpf;
           this._telephone = telephone;
           this._address = address;
-          this._complement = complement;
           Object.freeze(this);
   }
 
@@ -28,8 +27,5 @@ class User {
           return this._address;
       }
 
-      get complement() {
-          return this._complement;
-      }
 
 }
