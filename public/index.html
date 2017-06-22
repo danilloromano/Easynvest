@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Easynvest</title>
+    <link rel="stylesheet" href="./css/style.css" media="screen">
+    <!-- <link rel="stylesheet" href="./css/reset.css" media="screen"> -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  </head>
+  <body>
+    <h1 class="titulo">User Registration</h1>
+    <div class="messageErrorPositon">
+      <p class="message">Abacaxi</p>
+    </div>
+
+    <div class="formPosition">
+      <form class="form" onsubmit="formrController.adiciona(event)" id='form'>
+
+      </form>
+    </div>
+
+    <script src="./js/model/User.js"></script>
+    <script src="./js/model/ListaUser.js"></script>
+    <script src="./js/helpers/formCreator.js"></script>
+    <script src="./js/controllers/FormController.js"></script>
+    <script>
+      let listaUser = new ListaUser()
+      let formrController = new FormController();
+
+      fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
+        .then(response => response.json()
+          .then(data => {
+            let formCreator = new FormCreator(data);
+          }))
+      .catch(function(error) {
+        console.log(error);
+      });
+      listaUser.reciveUsers();
+    </script>
+  </body>
+</html>

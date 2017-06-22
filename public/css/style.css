@@ -1,0 +1,72 @@
+body {
+  background-color: white;
+}
+
+.titulo {
+  color: rgb(12,239,225);
+  font-family: "Open Sans", sans-serif;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-left: 40%;
+}
+
+.form {
+  position:relative;
+  top: 40px;
+  left: 35%;
+  height: 300px;
+  width: 450px;
+  /*border: 2px solid rgb(12,239,225);*/
+  border-radius: 10px;
+}
+
+.inputWrapper {
+margin: 20px;
+}
+
+.input:not([type='file']) {
+  width: 400px;
+  height: 25px;
+  outline: 0;
+  border: 0 none;
+  border-bottom: 1px solid rgb(161,159,159);
+  color: rgb(161,159,159);
+}
+
+.input:focus:not([type='file']) {
+  border-bottom: 1px solid rgb(12,239,225);
+  color: rgb(12,239,225);
+
+}
+
+.input:focus::-webkit-input-placeholder {
+    color: rgb(12,239,225);
+}
+
+.input:hover::-webkit-input-placeholder {
+  position: relative;
+  bottom: 10px;
+  font-size: 10px;
+}
+
+
+
+#btnSave {
+  background-color: rgb(12,239,225);
+  color: white;
+  text-align: center;
+  text-decoration: inherit;
+  border-radius: 10px;
+
+}
+
+#btnSave:hover {
+  width: 380px;
+  /*background-color: rgba(12,239,225,0.3);*/
+
+}
+
+#btnSave:focus {
+  color: rgb(12,239,225);
+  background-color: rgba(12,239,225,0.3);
+}
