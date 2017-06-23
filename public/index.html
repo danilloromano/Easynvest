@@ -14,7 +14,7 @@
 
     <div class="formPosition">
       <form class="form" onsubmit="formrController.adiciona(event)" id='form'>
-
+        
       </form>
     </div>
 
@@ -22,13 +22,15 @@
     <script src="./js/model/ListaUser.js"></script>
     <script src="./js/helpers/formCreator.js"></script>
     <script src="./js/controllers/FormController.js"></script>
-    <script type="text/javascript"src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-
+    <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-gyqQOuYll-_7Z_lnwciqcEDTku9ABY8&libraries=places"></script>
+    <script src="./js/helpers/maps.js"></script>
     <script>
     fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
       .then(response => response.json()
         .then(data => {
           let formCreator = new FormCreator(data);
+          let maps = new Maps();
+          setTimeout(maps.inicializeInputAutocomplete(), 5000);
         }))
     .catch(function(error) {
       console.log(error);
