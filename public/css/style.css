@@ -57,6 +57,19 @@ margin: 20px;
   border-bottom: 1px solid red;
 }
 
+.nameErrorMessage {
+  color: red;
+}
+.cpfErrorMessage {
+  color: red;
+}
+.phoneErrorMessage {
+  color: red;
+}
+.addressErrorMessage {
+  color: red;
+}
+
 #btnSave {
   background-color: rgb(12,239,225);
   color: white;

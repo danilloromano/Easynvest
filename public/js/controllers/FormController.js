@@ -88,7 +88,6 @@ class FormController {
     return address;
   }
 
-
   adiciona(event) {
     event.preventDefault();
 
@@ -100,26 +99,34 @@ class FormController {
     this.validatePhone(phone);
     const address = document.querySelector('#txtAddress').value;
     this.validateAddress(address);
+    const file = document.querySelector('#uplImage').value
 
 
-    // const $ = document.querySelector.bind(document);
-    // let user = new User(
-    //   $('#txtFullname').value,
-    //   $('#txtCPF').value,
-    //   $('#txtPhone').value,
-    //   $('#txtAddress').value
-    // );
-
-    const $ = document.querySelector.bind(document);
-    let user = new User(
-      name,
-      cpf,
-      phone,
-      address
-    );
-
+    let user = new User(name,cpf,phone,address,file);
 
       console.log(user);
+
+      const requestInfo = {
+        method:'POST',
+        body:JSON.stringify(user),
+        headers:new Headers({
+                'Content-type' : 'application/json'
+            })
+      };
+      fetch('/newUser',requestInfo)
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error('não foi possível salvar o usuario');
+        }
+      }).then(user => {
+          let listaUser = new ListaUser()
+          listaUser.addUser(user);
+      })
+      .catch(error => {
+          console.log(error);
+      });
         // this._criaUser();
         this._limpaFormulario();
     }
@@ -130,6 +137,7 @@ class FormController {
       document.querySelector('#txtCPF').value = "";
       document.querySelector('#txtPhone').value = "";
       document.querySelector('#txtAddress').value = "";
+      document.querySelector('#uplImage').value = "";
       document.querySelector('#txtFullname').focus();
     }
 

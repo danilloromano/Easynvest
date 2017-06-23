@@ -1,21 +1,20 @@
 class ListaUser {
 
-    constructor() {
-        this._users = [];
+    constructor(data) {
+        this._users = [data];
+        console.log(this._users);
     }
 
     addUser(user) {
         this._users.push(user);
-        console.log(user);
+        console.log(this._users);
     }
-
 
   reciveUsers(){
     fetch('/usersData')
       .then(response => response.json()
         .then(data => {
-          this._users.push(data);
-          // console.log(this._users);
+          listaUser = new ListaUser(data);
         }))
     .catch(function(error) {
       console.log(error);

@@ -10,7 +10,6 @@
   <body>
     <h1 class="titulo">User Registration</h1>
     <div class="messageErrorPositon">
-      <!-- <p class="message">Abacaxi</p> -->
     </div>
 
     <div class="formPosition">
@@ -23,6 +22,8 @@
     <script src="./js/model/ListaUser.js"></script>
     <script src="./js/helpers/formCreator.js"></script>
     <script src="./js/controllers/FormController.js"></script>
+    <script type="text/javascript"src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+
     <script>
     fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
       .then(response => response.json()
