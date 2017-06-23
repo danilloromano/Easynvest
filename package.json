@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp"
   },
   "author": "Danilloromano",
   "license": "ISC",
@@ -14,5 +15,9 @@
     "express": "^4.15.3",
     "express-validator": "^3.2.0",
     "mysql": "^2.13.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^3.1.0"
   }
 }
