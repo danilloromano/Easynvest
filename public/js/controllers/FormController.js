@@ -4,14 +4,12 @@ class FormController {
 
   constructor() {
     const $ = document.querySelector.bind(document);
-
   }
 
   reciveData(){
     fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
       .then(response => response.json()
         .then(data => {
-          console.log(data);
           return data;
         }))
     .catch(function(error) {
@@ -25,8 +23,11 @@ class FormController {
     if (name === '') {
       $('#txtFullname').className = 'inputError';
       $('.nameErrorMessage').innerHTML = "O compo nao pode ser vazio";
-      return;
+      return false;
     }
+    $('.nameErrorMessage').innerHTML = "";
+    $('#txtFullname').classList.remove("inputError");
+    $('#txtFullname').className = 'input';
     return name;
   }
 
@@ -36,20 +37,21 @@ class FormController {
 
     if (cpf === '') {
       $('#txtCPF').className = 'inputError';
-      $('.cpfErrorMessage').innerHTML = "O compo nao pode ser vazio";
-      return;
+      $('.cpfErrorMessage').innerHTML = "O compo não pode ser vazio";
+      return false;
     }
     if(cpf === "000.000.000.00"){
       $('#txtCPF').className = 'inputError';
-      $('.cpfErrorMessage').innerHTML = "Os valores nao podem ser zerados";
-      return;
+      $('.cpfErrorMessage').innerHTML = "Os valores não podem ser zerados";
+      return false;
     }
     if (!Regex.test(cpf)) {
       $('#txtCPF').className = 'inputError';
-      $('.cpfErrorMessage').innerHTML = "Formato invalido, tente xxx.xxx.xxx-xx";
-      return;
+      $('.cpfErrorMessage').innerHTML = "Formato invalido, ensira xxx.xxx.xxx-xx";
+      return false;
     }
-    console.log(cpf);
+    $('#txtCPF').className = 'input';
+    $('.cpfErrorMessage').innerHTML = "";
     return cpf;
 
   }
@@ -61,19 +63,21 @@ class FormController {
 
     if (phone === "") {
       $('#txtPhone').className ='inputError';
-      $('.phoneErrorMessage').innerHTML = "O compo nao pode ser vazio";
-      return ;
+      $('.phoneErrorMessage').innerHTML = "O compo não pode ser vazio";
+      return false;
     }
     if (phone === "(00)00000-0000") {
       $('#txtPhone').className ='inputError';
-      $('.phoneErrorMessage').innerHTML = "Os valores nao podem ser zerados";
-      return;
+      $('.phoneErrorMessage').innerHTML = "Os valores não podem ser zerados";
+      return false;
     }
     if (!phoneRegex.test(phone)) {
       $('#txtPhone').className ='inputError';
       $('.phoneErrorMessage').innerHTML = "Formato invalido, tente (xx) xxxxx-xxxx ou (xx) xxxx-xxxx";
-      return;
+      return false;
     }
+    $('#txtPhone').className ='input';
+    $('.phoneErrorMessage').innerHTML = "";
     return phone;
   }
 
@@ -82,64 +86,105 @@ class FormController {
 
     if (address === '') {
       $('#txtAddress').className = 'inputError';
-      $('.addressErrorMessage').innerHTML = "O compo nao pode ser vazio";
-      return;
+      $('.addressErrorMessage').innerHTML = "O compo não pode ser vazio";
+      return false;
     }
+    $('.addressErrorMessage').innerHTML = "";
+    $('#txtAddress').classList.remove("inputError");
+    $('#txtAddress').className = 'input';
     return address;
   }
+
+  validateFile(file) {
+    const $ = document.querySelector.bind(document);
+    if (file === '') {
+      $('.imageErrorMessage').innerHTML = "O compo não pode ser vazio";
+      return false;
+    }
+    $('.imageErrorMessage').innerHTML = "";
+    return file;
+  }
+
+
+  addValidateUserToApi(name,cpf,phone,address,file) {
+    let userArray = [];
+    let newArray = [];
+    userArray.push(name,cpf,phone,address,file);
+    userArray.forEach(function(item) {
+
+      if (item === false) {
+        return;
+      }
+      else {
+
+        newArray.push(item)
+        console.log(newArray);
+
+
+      if (newArray.length === 5) {
+        let user = new User(novoArray[0],novoArray[1],novoArray[2],novoArray[3],novoArray[4]);
+        console.log(user);
+
+        const requestInfo = {
+          method:'POST',
+          body:JSON.stringify(user),
+          headers:new Headers({
+                  'Content-type' : 'application/json'
+          })
+        };
+
+        fetch('/newUser',requestInfo)
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error('não foi possível salvar o usuario');
+          }
+        }).then(user => {
+            let listaUser = new ListaUser()
+            listaUser.addUser(user);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+}
+
+
+  });
+
+  };
+
+
 
   adiciona(event) {
     event.preventDefault();
 
     const name =  document.querySelector('#txtFullname').value;
-    this.validateName(name);
+    const nameValid = this.validateName(name);
+
     const cpf = document.querySelector('#txtCPF').value;
-    this.validateCpf(cpf);
+    const cpfValid = this.validateCpf(cpf);
+
     const phone = document.querySelector('#txtPhone').value;
-    this.validatePhone(phone);
+    const phoneValid = this.validatePhone(phone);
+
     const address = document.querySelector('#txtAddress').value;
-    this.validateAddress(address);
+    const addressValid = this.validateAddress(address);
+
     const file = document.querySelector('#uplImage').value
+    const fileValid = this.validateFile(file);
 
 
-    let user = new User(name,cpf,phone,address,file);
+    this.addValidateUserToApi(nameValid,cpfValid,phoneValid,addressValid,fileValid);
 
-      console.log(user);
+    this._limpaFormulario();
 
-      const requestInfo = {
-        method:'POST',
-        body:JSON.stringify(user),
-        headers:new Headers({
-                'Content-type' : 'application/json'
-            })
-      };
-      fetch('/newUser',requestInfo)
-      .then(response => {
-        if (response.ok) {
-          return response.text();
-        } else {
-          throw new Error('não foi possível salvar o usuario');
-        }
-      }).then(user => {
-          let listaUser = new ListaUser()
-          listaUser.addUser(user);
-      })
-      .catch(error => {
-          console.log(error);
-      });
-        // this._criaUser();
-        this._limpaFormulario();
     }
-
 
     _limpaFormulario() {
-      document.querySelector('#txtFullname').value = "";
-      document.querySelector('#txtCPF').value = "";
-      document.querySelector('#txtPhone').value = "";
-      document.querySelector('#txtAddress').value = "";
-      document.querySelector('#uplImage').value = "";
+      document.querySelector("#form").reset();
       document.querySelector('#txtFullname').focus();
     }
-
 
 }

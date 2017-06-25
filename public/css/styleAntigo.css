@@ -1,4 +1,5 @@
 body {
+  font-family: "Open Sans", sans-serif;
   background-color: white;
 }
 
@@ -16,7 +17,6 @@ body {
   left: 35%;
   height: 300px;
   width: 450px;
-  /*border: 2px solid rgb(12,239,225);*/
   border-radius: 10px;
 }
 
@@ -69,23 +69,48 @@ margin: 20px;
 .addressErrorMessage {
   color: red;
 }
+.imageErrorMessage {
+  color: red;
+}
 
-#btnSave {
+.btnSave {
   background-color: rgb(12,239,225);
   color: white;
   text-align: center;
   text-decoration: inherit;
   border-radius: 10px;
-
+}
+#btnSave{
+  color: white;
 }
 
-#btnSave:hover {
-  width: 380px;
-  /*background-color: rgba(12,239,225,0.3);*/
-
+.btnSave:hover {
+  background-color: rgba(12,239,225,0.3);
 }
 
-#btnSave:focus {
+.btnSave:focus {
   color: rgb(12,239,225);
+  background-color: rgba(12,239,225,0.3);
+}
+
+#uplImage {
+  display: none;
+}
+
+.labelFile {
+  font: 13.3333px Arial;
+  cursor: pointer;
+  padding: 5px;
+  color: white;
+  background-color: rgb(12,239,225);
+  border-bottom: 1px solid rgb(161,159,159);
+  border-radius: 10px
+}
+
+.labelFile:focus {
+  color: rgb(12,239,225);
+  background-color: rgba(12,239,225,0.3);
+}
+.labelFile:hover {
   background-color: rgba(12,239,225,0.3);
 }
