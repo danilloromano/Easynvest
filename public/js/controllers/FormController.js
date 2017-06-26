@@ -1,20 +1,7 @@
-
-
 class FormController {
 
   constructor() {
     const $ = document.querySelector.bind(document);
-  }
-
-  reciveData(){
-    fetch('https://private-da937a-izitest1.apiary-mock.com/fields')
-      .then(response => response.json()
-        .then(data => {
-          return data;
-        }))
-    .catch(function(error) {
-      console.log(error);
-    });
   }
 
   validateName(name) {
@@ -22,7 +9,7 @@ class FormController {
 
     if (name === '') {
       $('#txtFullname').className = 'inputError';
-      $('.nameErrorMessage').innerHTML = "O compo nao pode ser vazio";
+      $('.nameErrorMessage').innerHTML = "O campo nao pode ser vazio";
       return false;
     }
     $('.nameErrorMessage').innerHTML = "";
@@ -37,10 +24,10 @@ class FormController {
 
     if (cpf === '') {
       $('#txtCPF').className = 'inputError';
-      $('.cpfErrorMessage').innerHTML = "O compo não pode ser vazio";
+      $('.cpfErrorMessage').innerHTML = "O campo não pode ser vazio";
       return false;
     }
-    if(cpf === "000.000.000.00"){
+    if(cpf === "000.000.000-00"){
       $('#txtCPF').className = 'inputError';
       $('.cpfErrorMessage').innerHTML = "Os valores não podem ser zerados";
       return false;
@@ -63,11 +50,12 @@ class FormController {
 
     if (phone === "") {
       $('#txtPhone').className ='inputError';
-      $('.phoneErrorMessage').innerHTML = "O compo não pode ser vazio";
+      $('.phoneErrorMessage').innerHTML = "O campo não pode ser vazio";
       return false;
     }
-    if (phone === "(00)00000-0000") {
+    if (phone === "00000-0000") {
       $('#txtPhone').className ='inputError';
+      console.log('entrou');
       $('.phoneErrorMessage').innerHTML = "Os valores não podem ser zerados";
       return false;
     }
@@ -86,7 +74,7 @@ class FormController {
 
     if (address === '') {
       $('#txtAddress').className = 'inputError';
-      $('.addressErrorMessage').innerHTML = "O compo não pode ser vazio";
+      $('.addressErrorMessage').innerHTML = "O campo não pode ser vazio";
       return false;
     }
     $('.addressErrorMessage').innerHTML = "";
@@ -98,7 +86,7 @@ class FormController {
   validateFile(file) {
     const $ = document.querySelector.bind(document);
     if (file === '') {
-      $('.imageErrorMessage').innerHTML = "O compo não pode ser vazio";
+      $('.imageErrorMessage').innerHTML = "O campo não pode ser vazio";
       return false;
     }
     $('.imageErrorMessage').innerHTML = "";
@@ -122,7 +110,7 @@ class FormController {
 
 
       if (newArray.length === 5) {
-        let user = new User(novoArray[0],novoArray[1],novoArray[2],novoArray[3],novoArray[4]);
+        let user = new User(newArray[0],newArray[1],newArray[2],newArray[3],newArray[4]);
         console.log(user);
 
         const requestInfo = {
@@ -147,20 +135,15 @@ class FormController {
         .catch(error => {
             console.log(error);
         });
-    }
-}
-
-
-  });
-
+      }
+      }
+    });
   };
 
-
-
-  adiciona(event) {
+  checkUserToApi(event) {
     event.preventDefault();
 
-    const name =  document.querySelector('#txtFullname').value;
+    const name = document.querySelector('#txtFullname').value;
     const nameValid = this.validateName(name);
 
     const cpf = document.querySelector('#txtCPF').value;
@@ -175,16 +158,13 @@ class FormController {
     const file = document.querySelector('#uplImage').value
     const fileValid = this.validateFile(file);
 
-
     this.addValidateUserToApi(nameValid,cpfValid,phoneValid,addressValid,fileValid);
 
     this._limpaFormulario();
-
-    }
+  }
 
     _limpaFormulario() {
       document.querySelector("#form").reset();
       document.querySelector('#txtFullname').focus();
     }
-
 }
