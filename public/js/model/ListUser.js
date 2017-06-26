@@ -1,4 +1,4 @@
-class ListaUser {
+class ListUser {
 
     constructor(data) {
         this._users = [data];
@@ -8,15 +8,15 @@ class ListaUser {
         this._users.push(user);
     }
 
-  reciveUsers(){
+  reciveUsers() {
     fetch('/usersData')
       .then(response => response.json()
         .then(data => {
-          listaUser = new ListaUser(data);
+          listUser = new ListUser(data);
         }))
     .catch(function(error) {
       console.log(error);
     });
-    }
+  }
 
 }

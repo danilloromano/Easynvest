@@ -2,6 +2,7 @@ class FormController {
 
   constructor() {
     const $ = document.querySelector.bind(document);
+
   }
 
   validateName(name) {
@@ -55,7 +56,6 @@ class FormController {
     }
     if (phone === "00000-0000") {
       $('#txtPhone').className ='inputError';
-      console.log('entrou');
       $('.phoneErrorMessage').innerHTML = "Os valores não podem ser zerados";
       return false;
     }
@@ -86,17 +86,22 @@ class FormController {
   validateFile(file) {
     const $ = document.querySelector.bind(document);
     if (file === '') {
-      $('.imageErrorMessage').innerHTML = "O campo não pode ser vazio";
+      $('.imageErrorMessage').innerHTML = "O campo 'Selecione o arquivo' não pode ser vazio";
       return false;
     }
     $('.imageErrorMessage').innerHTML = "";
     return file;
   }
 
+  clearForm() {
+    document.querySelector("#form").reset();
+    document.querySelector('#txtFullname').focus();
+  }
 
   addValidateUserToApi(name,cpf,phone,address,file) {
     let userArray = [];
     let newArray = [];
+
     userArray.push(name,cpf,phone,address,file);
     userArray.forEach(function(item) {
 
@@ -109,7 +114,6 @@ class FormController {
 
         if (newArray.length === 5) {
           let user = new User(newArray[0],newArray[1],newArray[2],newArray[3],newArray[4]);
-          console.log(user);
 
           const requestInfo = {
             method:'POST',
@@ -127,8 +131,8 @@ class FormController {
               throw new Error('não foi possível salvar o usuario');
             }
           }).then(user => {
-              let listaUser = new ListaUser()
-              listaUser.addUser(user);
+              let listUser = new ListUser()
+              listUser.addUser(user);
           })
           .catch(error => {
               console.log(error);
@@ -161,8 +165,5 @@ class FormController {
     this.clearForm();
   }
 
-    clearForm() {
-      document.querySelector("#form").reset();
-      document.querySelector('#txtFullname').focus();
-    }
+
 }
