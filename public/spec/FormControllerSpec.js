@@ -183,7 +183,7 @@ describe("FormController", function() {
       expect(controller.validateAddress).toHaveBeenCalledWith(address.value);
       expect(controller.validateFile).toHaveBeenCalledWith(image.value);
       expect(controller.addValidateUserToApi).toHaveBeenCalled();
-      expect(controller._limpaFormulario).toHaveBeenCalled();
+      expect(controller.clearForm).toHaveBeenCalled();
     });
   });
 

@@ -106,36 +106,34 @@ class FormController {
       else {
 
         newArray.push(item)
-        console.log(newArray);
 
+        if (newArray.length === 5) {
+          let user = new User(newArray[0],newArray[1],newArray[2],newArray[3],newArray[4]);
+          console.log(user);
 
-      if (newArray.length === 5) {
-        let user = new User(newArray[0],newArray[1],newArray[2],newArray[3],newArray[4]);
-        console.log(user);
+          const requestInfo = {
+            method:'POST',
+            body:JSON.stringify(user),
+            headers:new Headers({
+                    'Content-type' : 'application/json'
+            })
+          };
 
-        const requestInfo = {
-          method:'POST',
-          body:JSON.stringify(user),
-          headers:new Headers({
-                  'Content-type' : 'application/json'
+          fetch('/newUser',requestInfo)
+          .then(response => {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error('não foi possível salvar o usuario');
+            }
+          }).then(user => {
+              let listaUser = new ListaUser()
+              listaUser.addUser(user);
           })
-        };
-
-        fetch('/newUser',requestInfo)
-        .then(response => {
-          if (response.ok) {
-            return response.text();
-          } else {
-            throw new Error('não foi possível salvar o usuario');
-          }
-        }).then(user => {
-            let listaUser = new ListaUser()
-            listaUser.addUser(user);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-      }
+          .catch(error => {
+              console.log(error);
+          });
+        }
       }
     });
   };
@@ -160,10 +158,10 @@ class FormController {
 
     this.addValidateUserToApi(nameValid,cpfValid,phoneValid,addressValid,fileValid);
 
-    this._limpaFormulario();
+    this.clearForm();
   }
 
-    _limpaFormulario() {
+    clearForm() {
       document.querySelector("#form").reset();
       document.querySelector('#txtFullname').focus();
     }
