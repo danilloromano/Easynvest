@@ -3,3 +3,5 @@ Para rodar a aplicação va ate o diretório 'api' e rode o comando 'node index.
 O arquivo referente ao banco de dados (easynvest_users.sql) está na pasta instructions;
 
 Para Rodar o banco vá ao arquivo 'api/DAO/connection.js' e altere as configurações de acordo com o mysql instalado em seu computador;
+
+Rode os testes ('public/spec/FormControllerSpec.js') com o  navegador Firefox.

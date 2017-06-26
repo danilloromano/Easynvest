@@ -173,7 +173,7 @@ describe("FormController", function() {
         spyOn(controller,"validateAddress");
         spyOn(controller,"validateFile");
         spyOn(controller,"addValidateUserToApi");
-        spyOn(controller,"_limpaFormulario");
+        spyOn(controller,"clearForm");
 
         controller.checkUserToApi(event);
 
